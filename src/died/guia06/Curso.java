@@ -27,7 +27,28 @@ public class Curso {
 	private Registro log;
 	
 	
-	
+	/*----------------CONSTRUCTORES---------------------*/
+
+	public Curso() {
+		this.inscriptos = new ArrayList<Alumno>();
+		this.log = new Registro();
+	}
+
+
+	public Curso(Integer id, String nombre, Integer cicloLectivo, Integer cupo,
+			Integer creditos, Integer creditosRequeridos) {
+		
+		this.id = id;
+		this.nombre = nombre;
+		this.cicloLectivo = cicloLectivo;
+		this.cupo = cupo;
+		this.creditos = creditos;
+		this.creditosRequeridos = creditosRequeridos;
+		this.inscriptos = new ArrayList<Alumno>();
+		this.log = new Registro();
+	}
+
+	 /*-------------Getters & Setters --------------*/ 
 	public Integer getId() {
 		return id;
 	}
@@ -108,11 +129,7 @@ public class Curso {
 	}
 
 
-	public Curso() {
-		super();
-		this.inscriptos = new ArrayList<Alumno>();
-		this.log = new Registro();
-	}
+	/*--------------METODOS--------------- */
 	
 
 	/**
