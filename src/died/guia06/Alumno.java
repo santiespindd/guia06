@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Alumno {
+public class Alumno implements Comparable<Alumno>{
 
 	private String nombre;
 	private Integer nroLibreta;
@@ -92,6 +92,19 @@ public class Alumno {
 		
 		int cant = this.cursando.size();
 		return cant;
+	}
+	
+	public boolean equals(Alumno alumno) {
+		if (this.nroLibreta == alumno.nroLibreta) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public int compareTo(Alumno a) {
+		
+		return this.nombre.compareTo(a.nombre);
 	}
 	
 

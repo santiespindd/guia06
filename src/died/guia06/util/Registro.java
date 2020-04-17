@@ -1,13 +1,9 @@
 package died.guia06.util;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
-
 import died.guia06.Curso;
 
 public class Registro {
