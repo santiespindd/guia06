@@ -147,13 +147,22 @@ public class Curso {
 	 */
 	public Boolean inscribir(Alumno a) {
 		
-		try {
+		
 			if(!this.inscriptos.contains(a)){
 				if( a.creditosObtenidos() >= this.creditosRequeridos ){
 					if(a.cantCursandoEnElCiclo() < 3){
 						if(this.inscriptos.size()< this.cupo){
-							log.registrar(this, "inscribir ",a.toString());	
-							this.inscriptos.add(a);
+							
+								try {
+									log.registrar(this, "inscribir ",a.toString());	
+								} catch (IOException e) {
+									System.out.println("Hubo un error: " + e.getMessage());
+									return false;
+								}
+					
+								this.inscriptos.add(a);
+								a.inscripcionAceptada(this);
+								
 						}else {
 							System.out.println("Ya no hay cupo en el curso " + this.nombre);
 							return false;
@@ -168,11 +177,11 @@ public class Curso {
 				}	
 			}else{
 				System.out.println("El alumno " + a.getNombre() +"ya esta inscripto");
+				return false;
 			}
 				
-		} catch (IOException e) {
-			System.out.println("Hubo un error " + e.getMessage());
-		}
+		
+		
 		
 		return true;
 	}
