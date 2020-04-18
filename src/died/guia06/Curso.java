@@ -2,7 +2,10 @@ package died.guia06;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+
 
 import died.guia06.util.Registro;
 
@@ -168,15 +171,15 @@ public class Curso {
 							return false;
 						}	
 					}else{
-						System.out.println("El aspirante "+ a.getNombre() +"esta cursando la cantidad maxima de cursos");
+						System.out.println("El aspirante "+ a.getNombre() +" esta cursando la cantidad maxima de cursos");
 						return false;
 					}
 				}else {
-					System.out.println("El aspirante "+ a.getNombre() + "no tiene los creditos suficientes para inscribirse a este curso");
+					System.out.println("El aspirante "+ a.getNombre() + " no tiene los creditos suficientes para inscribirse a este curso");
 					return false;
 				}	
 			}else{
-				System.out.println("El alumno " + a.getNombre() +"ya esta inscripto");
+				System.out.println("El alumno " + a.getNombre() +" ya esta inscripto");
 				return false;
 			}
 				
@@ -192,6 +195,18 @@ public class Curso {
 	 * @throws IOException 
 	 */
 	public void imprimirInscriptos()  {
+		
+	    CompararAlfabeticamente comparar = new CompararAlfabeticamente();
+		Collections.sort(inscriptos,comparar);
+		
+		
+		Iterator<Alumno> iter =  this.inscriptos.iterator();
+		
+		while (iter.hasNext()) {
+		  System.out.println(iter.next());
+		}
+		
+		
 		try {
 			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 		} catch (IOException e) {
