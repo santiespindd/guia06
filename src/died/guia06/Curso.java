@@ -3,11 +3,15 @@ package died.guia06;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 
 import died.guia06.util.Registro;
+import excepciones.CupoCubiertoException;
+import excepciones.LimiteCursadoException;
+import excepciones.NoCreditosException;
+import excepciones.RegistroAuditoriaException;
+import excepciones.YaInscriptoException;
 
 /**
  * Clase que representa un curso. Un curso se identifica por su ID y por su nombre y ciclo lectivo.
@@ -189,24 +193,48 @@ public class Curso {
 		return true;
 	}
 	
+	public Boolean inscribirAlumno(Alumno a) throws Exception {
+		
+		
+		if(!this.inscriptos.contains(a)){
+			if( a.creditosObtenidos() >= this.creditosRequeridos ){
+				if(a.cantCursandoEnElCiclo() < 3){
+					if(this.inscriptos.size()< this.cupo){
+							try {
+								log.registrar(this, "inscribir ",a.toString());	
+							} catch (IOException e ) {
+								throw new RegistroAuditoriaException("Error al registrar");
+								
+							}
+							this.inscriptos.add(a);
+							a.inscripcionAceptada(this);
+							
+					}else {throw new CupoCubiertoException();}	
+				}else{throw new LimiteCursadoException();}
+			}else {throw new NoCreditosException();}	
+		}else{throw new YaInscriptoException();}
+			
 	
+	
+	
+	return true;
+}
+
 	/**
 	 * imprime los inscriptos en orden alfabetico
 	 * @throws IOException 
 	 */
+	
 	public void imprimirInscriptos()  {
 		
 	    CompararAlfabeticamente comparar = new CompararAlfabeticamente();
-		Collections.sort(inscriptos,comparar);
+		Collections.sort(inscriptos, comparar);
 		
-		
-		Iterator<Alumno> iter =  this.inscriptos.iterator();
-		
-		while (iter.hasNext()) {
-		  System.out.println(iter.next());
+		System.out.println("[");
+		for(int i=0; i<inscriptos.size() ; i++){
+			System.out.println("Nombre: "+inscriptos.get(i).getNombre() +" , Num Libreta: " + inscriptos.get(i).getNroLibreta() );	
 		}
-		
-		
+		System.out.println("]");
 		try {
 			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 		} catch (IOException e) {
@@ -214,6 +242,8 @@ public class Curso {
 		}
 		
 	}
+
+	
 
 
 }

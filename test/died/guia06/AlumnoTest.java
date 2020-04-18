@@ -61,5 +61,14 @@ class AlumnoTest {
 		assertTrue(alumno1.getCursando().contains(curso3));
 		
 	}
+	@Test 
+	void testCantidadCursandoEnElCiclo(){
+		cursando.add(curso1);
+		cursando.add(curso2);
+		alumno1.setCursando(cursando);
+		
+		assertEquals(2,alumno1.cantCursandoEnElCiclo());
+		
+	}
 
 }

@@ -2,9 +2,15 @@ package died.guia06;
 
 import java.util.ArrayList;
 
+import excepciones.CupoCubiertoException;
+import excepciones.LimiteCursadoException;
+import excepciones.NoCreditosException;
+import excepciones.RegistroAuditoriaException;
+import excepciones.YaInscriptoException;
+
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		ArrayList<Curso> cursosAprobados = new ArrayList<>();
 		ArrayList<Curso>  cursando = new ArrayList<>();
 		 
@@ -28,7 +34,7 @@ public class App {
 			curso1.inscribir(alumno2);
 			curso1.inscribir(alumno3);
 			curso1.inscribir(alumno4);
-			
+		
 			/*No cumple con los creditos*/
 			
 			curso6.inscribir(alumno1);
@@ -41,8 +47,12 @@ public class App {
 			
 			alumno1.aprobar(curso1);
 			alumno1.aprobar(curso2);
+		
+			cursosAprobados.add(curso1);
+			cursosAprobados.add(curso2);
 			
-			
+			alumno1.setAprobados(cursosAprobados);
+		
 		
 			curso3.inscribir(alumno1);
 			curso4.inscribir(alumno1);
@@ -55,15 +65,40 @@ public class App {
 			alumno1.setCursando(cursando);
 			
 			curso6.inscribir(alumno1);
-		
-			/*Imprimir alumnos*/
 			
-			System.out.println("Alumnos de " + curso1.getNombre() + " = ");
+			/*Cuantos cursos tiene alumno1*/
+			System.out.println("Alumno 1 cursa : " + alumno1.cantCursandoEnElCiclo() + " cursos");
+			
+			/*Imprimir alumnos curso1*/
+			
+			System.out.print("Alumnos de " + curso1.getNombre() + " : ");
 			curso1.imprimirInscriptos();
 			
 			
+			/*Creditos Obtenidos*/
+			
+			alumno2.aprobar(curso1);
+			
+			System.out.println(alumno1.creditosObtenidos());
+			System.out.println(alumno2.creditosObtenidos());
+			System.out.println(alumno3.creditosObtenidos());
+			
+			/*Probar metodo inscribirAlumno*/
 		
-		
+	         try {
+	        	 curso1.inscribirAlumno(alumno1);
+				
+			} catch (YaInscriptoException  | CupoCubiertoException | LimiteCursadoException | NoCreditosException | RegistroAuditoriaException e  ){
+				e.printStackTrace();
+			}
+				
+	         try {
+	        	 curso6.inscribirAlumno(alumno1);
+				
+			} catch (YaInscriptoException  | CupoCubiertoException | LimiteCursadoException | NoCreditosException | RegistroAuditoriaException e  ){
+				e.printStackTrace();
+			}
+			
 		
 	}
 }

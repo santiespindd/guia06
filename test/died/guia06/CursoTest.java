@@ -2,6 +2,8 @@ package died.guia06;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,7 @@ class CursoTest {
 	Alumno alumno3;
 	Curso curso1;
 	Curso curso2;
+	ArrayList<Curso> cursando;
 	
 	@BeforeEach
 	public void init(){
@@ -19,19 +22,26 @@ class CursoTest {
 		alumno1 = new Alumno("Santiago Espindola", 23987);
 		alumno2 = new Alumno("Nicolas Perez", 21587);
 		alumno3 = new Alumno("Hector Lopez", 24879);
+		cursando = new ArrayList<>();
 	}
 	
 	@Test
-	void testInscribirAlumnos() {
+	void testInscribir() {
 		
 		assertTrue(curso1.inscribir(alumno1) && curso1.getInscriptos().contains(alumno1));
 	}
 	@Test
-	void testNoInscribirAlumnos() {
+	void testNoInscribir() {
 		curso2.inscribir(alumno1);
 		curso2.inscribir(alumno2);
 		
 		assertFalse(curso2.inscribir(alumno3) );
+	}
+	
+	@Test
+	void testInscribirAlumnos() throws Exception {
+		
+		assertTrue(curso1.inscribirAlumno(alumno1) && curso1.getInscriptos().contains(alumno1));
 	}
 	
 	
