@@ -73,8 +73,6 @@ public class Alumno implements Comparable<Alumno>{
 		return creditos;
 	}
 	
-	
-
 	public void aprobar(Curso c) {
 			if (cursando.contains(c)) {
 			aprobados.add(c);
